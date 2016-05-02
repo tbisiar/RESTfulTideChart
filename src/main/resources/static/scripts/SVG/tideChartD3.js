@@ -71,19 +71,19 @@ var tideChartD3 = function(tidesData){
 
   // Create gradient def
   // TODO - is there a better way to load this?
-  var defs = svgContainer.append("defs");
-  var linearGradient = defs.append("linearGradient")
-                       .attr("id", "svgGradient")
-                       .attr("x1", "0%")
-                       .attr("y1", "0%")
-                       .attr("x2", "0%")
-                       .attr("y2", "10%");
-  var stop1 = linearGradient.append("stop")
-                       .attr("offset", "0%")
-                       .attr("style", "stop-color:rgb(100,150,150);stop-opacity:1");
-  var stop2 = linearGradient.append("stop")
-                       .attr("offset", "100%")
-                       .attr("style", "stop-color:rgb(100,150,150);stop-opacity:0");
+  // var defs = svgContainer.append("defs");
+  // var linearGradient = defs.append("linearGradient")
+  //                      .attr("id", "svgGradient")
+  //                      .attr("x1", "0%")
+  //                      .attr("y1", "0%")
+  //                      .attr("x2", "0%")
+  //                      .attr("y2", "10%");
+  // var stop1 = linearGradient.append("stop")
+  //                      .attr("offset", "0%")
+  //                      .attr("style", "stop-color:rgb(100,150,150);stop-opacity:1");
+  // var stop2 = linearGradient.append("stop")
+  //                      .attr("offset", "100%")
+  //                      .attr("style", "stop-color:rgb(100,150,150);stop-opacity:0");
 
   var circles = svgContainer.selectAll("circle")
                             .data(tidesData)

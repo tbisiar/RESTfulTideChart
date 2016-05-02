@@ -4,7 +4,9 @@ html, body {
 
 body {
   padding-top: 50px;
-  background-image: url('../images/GoPro/StingrayHarbor-IntoTheWater5-Wide.jpg');
+  background-image: url(
+    'https://s3-us-west-2.amazonaws.com/terrybisiar.com/images/GoPro/StingrayHarbor-IntoTheWater5.jpg'
+  );
   background-repeat: repeat-x;
   background-attachment: fixed;
   background-position: left bottom;
@@ -86,7 +88,7 @@ svg.brand1 {
   background-attachment: fixed;
 
   /* center it */
-  background-position: 50vh 10vh;
+  background-position: 10vh;
 
   /* Scale it nicely to the element */
   background-size: cover;
@@ -121,4 +123,9 @@ svg.brand1 {
     https://s3-us-west-2.amazonaws.com/terrybisiar.com/images/GoPro/StingrayHarbor-IntoTheWater2.jpg
   );
 }
+
+/* SVG test classes */
+.normal  { fill: green }
+.warning { fill: yellow }
+.alert   { fill: red }
 

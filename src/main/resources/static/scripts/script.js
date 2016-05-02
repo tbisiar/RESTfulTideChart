@@ -21,46 +21,26 @@ tbAppMod.config(function($routeProvider) {
   	controller: 'aboutController'
   })
 
-  .when('/jsonComparator', {
-  	templateUrl: 'pages/jsonComparator.html',
-  	controller: 'jsonComparatorController'
-  })
-
   .when('/tideChart', {
   	templateUrl: 'pages/tideChart.html',
   	controller: 'tideChartController'
   })
 
-  .when('/contact', {
-  	templateUrl: 'pages/contact.html',
-  	controller: 'contactController'
-  });
-
-  // $locationProvider.html5Mode(true);
-
-})
+});
 
 // Initialize the controller
 tbAppMod.controller('mainController', function($scope) {
-  $scope.message = 'Hello, I am Terry Bisiar and this is my portfolio.';
-});
-
-tbAppMod.controller('aboutController', function($scope) {
-  $scope.message = 'Let me tell you a little about myself';
-});
-
-tbAppMod.controller('jsonComparatorController', function($scope) {
-  $scope.message = 'An example for an AngularJS front end.';
+  $scope.message = 'Single Page Application w/ Responsive Design';
 });
 
 tbAppMod.controller('tideChartController', function($scope, $http) {
-  $scope.message = 'An example for a SVG GUI to display tide at an Auckland Harbor location.';
+  $scope.message = 'Tide Chart GUI';
 
   // Load TideData into $scope.tideData
-  var tideData = TideDataCtrlAjax($scope, $http);
+  TideDataCtrlAjax($scope, $http);
 
   // Next round test data (matching JSON format from api call)
-  tideData = [{
+  var tideData = [{
                 "id":333,
                 "time":"2016-03-26 22:46:00.0",
                 "height":3.1,
@@ -96,13 +76,25 @@ tbAppMod.controller('tideChartController', function($scope, $http) {
   tideChartD3( tideData );
 });
 
-tbAppMod.controller('contactController', function($scope) {
-  $scope.message = 'Contact ME!';
-});
+// tbAppMod.directive("myStatus", function() {
+//     return {
+//         restrict: "E",
+//         replace: true,
+//         template: "<object type='image/svg+xml' data='../scripts/SVG/status.svg'></object>",
+//         link: function (scope, element, attrs) {
+//             var statusChanged = function(newValue, oldValue) {
+//                 var statusElm = angular.element(element[0].getSVGDocument().getElementById("status"));
+//                 statusElm.removeClass(oldValue);
+//                 statusElm.addClass(newValue);
+//             };
+//             scope.$watch(attrs.watch, statusChanged);
+//         }
+//     }
+// });
 
 var TideDataCtrlAjax = function($scope, $http) {
     $http({method: 'GET',
-              url: 'http://localhost:8080/tideData/next24Hours',
+              url: '../tideData/next24Hours',
               username: 'user',
               password: 'asdf'})
         .success(
@@ -110,4 +102,25 @@ var TideDataCtrlAjax = function($scope, $http) {
                 $scope.tideData = data.slice(); // response data
             }
         );
-}
+};
+
+// this is an example I'm following to get the svg to update via Angular
+tbAppMod.directive("myStatus", function() {
+    return {
+        restrict: "E",
+        replace: true,
+        template: "<object type='image/svg+xml' data='../scripts/SVG/status.svg'></object>",
+        link: function(scope, element, attrs) {
+            var statusChanged = function(newValue, oldValue) {
+                var elm = element[0];
+                var svgDocument = elm.getSVGDocument();
+                var elmWithIdStatus = svgDocument.getElementById("status");
+                var statusElm = angular.element(elmWithIdStatus);
+                statusElm.removeClass(oldValue);
+                statusElm.addClass(newValue);
+            };
+            scope.$watch(attrs.watch, statusChanged);
+        }
+    }
+});
+
